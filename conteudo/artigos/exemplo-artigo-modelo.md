@@ -1,5 +1,5 @@
 ---
-title: '[[EXEMPLO]] Título do artigo de exemplo (teste)'
+title: '[[EXEMPLO]] Título do artigo de exemplo'
 description: '[[EXEMPLO]] Texto de exemplo para conferir o modelo do blog: resumo curto que aparece nos cartões, nos resultados de busca e no compartilhamento do artigo.'
 date: 2026-11-16
 categoria: trabalho
