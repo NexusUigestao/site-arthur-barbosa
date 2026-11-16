@@ -1,10 +1,14 @@
 ---
-title: "[[EXEMPLO]] Título do artigo de exemplo"
-description: "[[EXEMPLO]] Texto de exemplo para conferir o modelo do blog: resumo curto que aparece nos cartões, nos resultados de busca e no compartilhamento do artigo."
+title: '[[EXEMPLO]] Título do artigo de exemplo (teste)'
+description: '[[EXEMPLO]] Texto de exemplo para conferir o modelo do blog: resumo curto que aparece nos cartões, nos resultados de busca e no compartilhamento do artigo.'
 date: 2026-11-16
 categoria: trabalho
+atualizado: ''
+imagem: ''
+imagem_alt: ''
 publicado: false
 ---
+
 [[EXEMPLO]] Este é um artigo de exemplo, só para conferir o modelo do blog. Ele não contém informação jurídica e não é publicado: a página só existe em desenvolvimento.
 
 ## Subtítulo de segundo nível
