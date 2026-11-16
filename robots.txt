@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://arthurbarbosa-advocacia.netlify.app/sitemap.xml

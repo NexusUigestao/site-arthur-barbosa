@@ -1,0 +1,20 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Uma <url> por página pública. Use as MESMAS URLs dos <link rel="canonical">. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for p in paginas %}{% if p.sitemap %}
+  <url><loc>{{ site.url }}{{ p.caminho }}</loc><lastmod>{{ p.lastmod }}</lastmod></url>
+{%- endif %}{% endfor %}
+{%- if collections.artigos.length %}
+  <url><loc>{{ site.url }}/blog/</loc><lastmod>{{ collections.artigos | ultimaMod | dataIso }}</lastmod></url>
+{%- for c in categorias %}{% set lista = collections.artigos | comCategoria(c.slug) %}{% if lista.length %}
+  <url><loc>{{ site.url }}/blog/{{ c.slug }}/</loc><lastmod>{{ lista | ultimaMod | dataIso }}</lastmod></url>
+{%- endif %}{% endfor %}
+{%- for artigo in collections.artigos %}
+  <url><loc>{{ site.url }}{{ artigo.url }}</loc><lastmod>{{ (artigo.data.atualizado or artigo.data.date) | dataIso }}</lastmod></url>
+{%- endfor %}
+{%- endif %}
+</urlset>

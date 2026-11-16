@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Nexus UI v4 — ponte opcional para Tailwind CSS v4 (build via CLI/Vite/PostCSS)
+   --------------------------------------------------------------------------
+   No CSS de entrada do projeto:
+       @import "tailwindcss";
+       @import "./nexus/tailwind-theme.css";
+
+   Classes geradas usam o prefixo nx para deixar claro que vêm dos tokens:
+       bg-nx-surface  text-nx-text-secondary  border-nx-border-control
+       font-display   ease-nx   rounded-nx-lg   outline-nx-focus
+
+   Não use o "Play CDN" (cdn.tailwindcss.com / @tailwindcss/browser) em produção:
+   é só para protótipo e carrega script de terceiro antes do consentimento.
+   Os componentes prontos (nexus.css) continuam valendo junto com as utilities.
+   ========================================================================== */
+
+@import "./tokens.css";
+
+@theme inline {
+  --color-nx-bg: var(--nx-bg);
+  --color-nx-surface: var(--nx-surface);
+  --color-nx-surface-hover: var(--nx-surface-hover);
+  --color-nx-text: var(--nx-text);
+  --color-nx-text-secondary: var(--nx-text-secondary);
+  --color-nx-text-muted: var(--nx-text-muted);
+  --color-nx-accent: var(--nx-accent);
+  --color-nx-action: var(--nx-action);
+  --color-nx-action-hover: var(--nx-action-hover);
+  --color-nx-on-action: var(--nx-on-action);
+  --color-nx-link: var(--nx-link);
+  --color-nx-focus: var(--nx-focus);
+  --color-nx-border-subtle: var(--nx-border-subtle);
+  --color-nx-border-strong: var(--nx-border-strong);
+  --color-nx-border-control: var(--nx-border-control);
+  --color-nx-danger: var(--nx-danger);
+  --color-nx-success: var(--nx-success);
+  --color-nx-warning: var(--nx-warning);
+
+  --font-sans: var(--nx-font-sans);
+  --font-display: var(--nx-font-display);
+
+  --radius-nx-sm: var(--nx-radius-sm);
+  --radius-nx-md: var(--nx-radius-md);
+  --radius-nx-lg: var(--nx-radius-lg);
+  --radius-nx-xl: var(--nx-radius-xl);
+
+  --ease-nx: var(--nx-ease-out);
+  --ease-nx-in-out: var(--nx-ease-in-out);
+}

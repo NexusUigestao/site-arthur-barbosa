@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "trabalho",
+    "rotulo": "Trabalho",
+    "assunto": "Direito do Trabalho",
+    "descricao": "Artigos informativos sobre Direito do Trabalho, escritos por Arthur Barbosa, advogado OAB/AL 20.279, para trabalhadores e para empresas, com explicações claras."
+  },
+  {
+    "slug": "consumidor",
+    "rotulo": "Consumidor",
+    "assunto": "Direito do Consumidor",
+    "descricao": "Artigos informativos sobre Direito do Consumidor, escritos por Arthur Barbosa, advogado OAB/AL 20.279: produtos, serviços, cobranças e contratos."
+  },
+  {
+    "slug": "familia",
+    "rotulo": "Família",
+    "assunto": "Direito de Família",
+    "descricao": "Artigos informativos sobre Direito de Família, escritos por Arthur Barbosa, advogado OAB/AL 20.279, com linguagem clara sobre cada etapa dos casos."
+  },
+  {
+    "slug": "defesas-administrativas",
+    "rotulo": "Defesas Administrativas",
+    "assunto": "Defesas Administrativas",
+    "descricao": "Artigos informativos sobre defesas administrativas, escritos por Arthur Barbosa, advogado OAB/AL 20.279: processos disciplinares e autos de infração."
+  }
+]

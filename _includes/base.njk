@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ tituloDaPagina or title }}</title>
+  <meta name="description" content="{{ description }}">
+  <meta name="theme-color" content="#F6F4F0">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <meta property="og:type" content="{{ ogTipo or 'website' }}">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="{{ site.nome }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:image" content="{{ (ogImagem or site.ogImagem) | urlAbsoluta(site.url) }}">
+{%- if ogImagemAlt or not ogImagem %}
+  <meta property="og:image:alt" content="{{ ogImagemAlt or site.ogImagemAlt }}">
+{%- endif %}
+{%- if ogPublicado %}
+  <meta property="article:published_time" content="{{ ogPublicado }}">
+{%- endif %}
+{%- if ogAtualizado %}
+  <meta property="article:modified_time" content="{{ ogAtualizado }}">
+{%- endif %}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{%- if collections.artigos.length %}
+  <link rel="alternate" type="application/rss+xml" title="Artigos de {{ site.nomeCurto }}" href="/blog/feed.xml">
+{%- endif %}
+{%- if ldjson %}
+
+  <script type="application/ld+json">
+{{ ldjson | jsonld | safe }}
+  </script>
+{%- endif %}
+
+  <link rel="preload" href="/assets/fonts/libre-baskerville-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/nexus/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/nexus/fonts.css">
+  <link rel="stylesheet" href="/nexus/tokens.css">
+  <link rel="stylesheet" href="/assets/tema.css">
+  <link rel="stylesheet" href="/nexus/nexus.css">
+  <link rel="stylesheet" href="/assets/site.css">
+
+  <script src="/nexus/nexus.js" defer></script>
+</head>
+<body>
+{% include "partes/cabecalho.njk" %}
+
+  <main id="conteudo" tabindex="-1" class="nx-section">
+{{ content | safe }}
+  </main>
+
+{% include "partes/rodape.njk" %}
+</body>
+</html>

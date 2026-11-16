@@ -1,0 +1,32 @@
+---
+layout: base.njk
+pagination:
+  data: categorias
+  size: 1
+  alias: categoria
+eleventyComputed:
+  title: "Artigos sobre {{ categoria.assunto }}"
+  tituloDaPagina: "Artigos sobre {{ categoria.assunto }} | Arthur Barbosa"
+  description: "{{ categoria.descricao }}"
+---
+    <div class="nx-container">
+      <div class="nx-section__head">
+        <p class="nx-eyebrow">Artigos</p>
+        <h1 data-enter="text">Artigos sobre {{ categoria.assunto }}</h1>
+      </div>
+
+      {% include "partes/categorias.njk" %}
+
+      {%- set lista = collections.artigos | comCategoria(categoria.slug) %}
+{%- if lista.length %}
+      <ul class="nx-grid ab-artigos-lista" role="list">
+{%- for artigo in lista %}
+        {% set atraso = loop.index0 % 3 %}{% set nivel = 2 %}{% include "partes/card-artigo.njk" %}
+{%- endfor %}
+      </ul>
+{%- else %}
+      <p class="nx-muted">Ainda não há artigos publicados nesta categoria.</p>
+{%- endif %}
+
+      {% include "partes/aviso.njk" %}
+    </div>

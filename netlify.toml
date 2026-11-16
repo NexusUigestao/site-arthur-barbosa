@@ -1,0 +1,13 @@
+# Build do site (Eleventy) e do painel /admin (Vite + Sveltia CMS). Nada é ligado no Netlify
+# por este arquivo: ele só descreve como o site é construído quando o repositório for conectado.
+#
+# Os cabeçalhos de segurança NÃO ficam aqui: são gerados em _site/_headers (cabecalhos.njk).
+# O build de produção ignora BLOG_MOSTRAR_RASCUNHOS (artigos com publicado: false e o exemplo
+# nunca saem).
+
+[build]
+  command = "npm ci && npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "22"

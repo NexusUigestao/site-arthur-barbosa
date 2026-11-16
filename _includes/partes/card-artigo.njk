@@ -1,0 +1,5 @@
+<li class="nx-card nx-glass ab-artigo-card" data-reveal{% if atraso %} data-reveal-delay="{{ atraso }}"{% endif %}>
+  <p class="ab-artigo-meta"><span class="nx-badge">{{ artigo.data.categoria | rotuloCategoria(categorias) }}</span> <time datetime="{{ artigo.data.date | dataIso }}">{{ artigo.data.date | dataBr }}</time></p>
+  <h{{ nivel or 3 }}><a href="{{ artigo.url }}">{{ artigo.data.title }}</a></h{{ nivel or 3 }}>
+  <p>{{ artigo.data.description }}</p>
+</li>

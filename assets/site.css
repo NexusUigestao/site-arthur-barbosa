@@ -1,0 +1,439 @@
+/* ==========================================================================
+   Composição do site Arthur Barbosa — só tokens --nx-* (cores da marca: --nx-brand-*,
+   definidas em tema.css). Carregue depois de nexus/nexus.css. Prefixo .ab-*.
+   Movimento: só transform, opacity e cores; tudo dentro de prefers-reduced-motion:
+   no-preference; nenhuma animação contínua (WCAG 2.2.2).
+   ========================================================================== */
+
+@layer nx-components {
+  /* ---- Header ------------------------------------------------------------
+     Com seções marfim rolando por trás, o vidro a 62% clareia e os links caem para ~3:1
+     (axe). Fundo quase opaco (glass-bg-strong, 95%) mantém o contraste validado do tema. */
+  .nx-header.nx-glass { background: var(--nx-glass-bg-strong); }
+
+  /* ---- Assinatura da marca no header e no rodapé ------------------------ */
+  .ab-logo { padding-block: var(--nx-space-1); }
+  .ab-logo img { height: 2.75rem; width: auto; }
+  .nx-footer .ab-logo img { height: 3rem; }
+
+  /* Monograma pequeno (404). */
+  .ab-hero-mark { width: clamp(6.5rem, 4.5rem + 8vw, 9.5rem); height: auto; margin-bottom: var(--nx-space-2); }
+
+  /* ---- Destaque em itálico nos títulos ------------------------------------ */
+  .ab-acento {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(100deg, var(--nx-brand-champanhe-claro) 0%, var(--nx-brand-champanhe) 55%, var(--nx-brand-champanhe-medio) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* o gradiente do h1 (nx-text-gradient) não alcança o acento: ele tem fundo próprio */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  [data-theme="light"] .ab-acento { background: none; color: var(--nx-link); }
+  @media (forced-colors: active) { .ab-acento { background: none; color: CanvasText; } }
+
+  /* ---- Hero em duas colunas: texto + monograma --------------------------- */
+  .ab-hero { padding-block: clamp(3.5rem, 2rem + 6vw, 7rem) clamp(4rem, 2.5rem + 5vw, 7rem); }
+  .ab-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--nx-space-10);
+    align-items: center;
+  }
+  .ab-hero__text { display: grid; gap: var(--nx-space-6); justify-items: start; }
+  .ab-hero__text .nx-hero__actions { justify-content: flex-start; }
+  .ab-hero h1 { font-size: clamp(2.25rem, 1.6rem + 3vw, 4.25rem); }
+  .ab-hero__art { order: -1; justify-self: start; width: min(52vw, 14rem); margin-bottom: calc(var(--nx-space-6) * -1); }
+  @media (min-width: 60rem) {
+    .ab-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--nx-space-16); }
+    .ab-hero__art { order: 0; justify-self: center; width: 100%; max-width: 30rem; margin-bottom: 0; }
+  }
+
+  /* Linhas do "fio condutor" atravessando o fundo do hero. */
+  .ab-hero-fio {
+    position: absolute;
+    inset: auto 0 0 0;
+    width: 100%;
+    height: 75%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Arte: halo + órbitas finas + monograma, com inclinação 3D controlada pelo marca.js. */
+  .ab-hero__art {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    perspective: 1000px;
+  }
+  .ab-hero__art::before {
+    content: "";
+    position: absolute;
+    inset: 4%;
+    border-radius: 50%;
+    background:
+      radial-gradient(closest-side, var(--nx-glow), transparent 72%),
+      radial-gradient(closest-side at 62% 70%, var(--nx-brand-brilho), transparent 60%);
+  }
+  .ab-orbita {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    border: 1px solid var(--nx-brand-fio);
+    transform: rotate(-18deg) scaleY(0.62);
+  }
+  .ab-orbita::after {
+    content: "";
+    position: absolute;
+    inset: 9%;
+    border-radius: 50%;
+    border: 1px solid var(--nx-border-strong);
+    transform: rotate(52deg) scaleX(0.8);
+  }
+  .ab-mark {
+    position: relative;
+    width: 82%;
+    height: auto;
+    overflow: visible;
+    transform: rotateX(var(--ab-rx, 0deg)) rotateY(var(--ab-ry, 0deg));
+    transition: transform var(--nx-dur-slow) var(--nx-ease-out);
+  }
+
+  /* ---- Faixas cruzadas (as duas fitas do monograma) ---------------------- */
+  .ab-faixas {
+    position: relative;
+    overflow: hidden;
+    overflow: clip;
+    padding-block: var(--nx-space-10);
+    margin-block: calc(var(--nx-space-8) * -1) 0;
+  }
+  .ab-faixa {
+    width: 112%;
+    margin-inline: -6%;
+    transform: rotate(-2.2deg);
+  }
+  .ab-faixa--frente {
+    --ab-gap: var(--nx-space-8);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--nx-space-2) var(--ab-gap);
+    padding: var(--nx-space-4) 8%;
+    list-style: none;
+    background: linear-gradient(90deg, var(--nx-brand-champanhe) 0%, var(--nx-brand-champanhe-claro) 48%, var(--nx-brand-champanhe) 100%);
+    color: var(--nx-brand-imperial);
+    font-size: var(--nx-text-sm);
+    font-weight: 600;
+    letter-spacing: var(--nx-tracking-eyebrow);
+    text-transform: uppercase;
+    box-shadow: var(--nx-highlight);
+  }
+  .ab-faixa--frente li { display: inline-flex; align-items: center; }
+  /* Losango centralizado no vão entre dois itens (decorativo: pseudo sem texto). */
+  .ab-faixa--frente li + li::before {
+    content: "";
+    flex: none;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin-left: calc(var(--ab-gap) / -2 - 0.2rem);
+    margin-right: calc(var(--ab-gap) / 2 - 0.2rem);
+    background: var(--nx-brand-imperial);
+    transform: rotate(45deg);
+  }
+  .ab-faixa--fundo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 3.25rem;
+    background: linear-gradient(90deg, var(--nx-brand-imperial), var(--nx-brand-figaro) 50%, var(--nx-brand-imperial));
+    border-block: 1px solid var(--nx-brand-fio);
+    transform: translateY(-50%) rotate(3deg);
+  }
+  @media (max-width: 40rem) {
+    .ab-faixa--frente { --ab-gap: var(--nx-space-6); row-gap: var(--nx-space-1); font-size: var(--nx-text-xs); }
+  }
+  @media (forced-colors: active) {
+    .ab-faixa--frente { border-block: 1px solid CanvasText; }
+    .ab-faixa--frente li + li::before { background: CanvasText; }
+  }
+
+  /* ---- Seções marfim (data-theme="light" na <section>) ------------------- */
+  .ab-light { background: var(--nx-bg); color: var(--nx-text); }
+
+  /* ---- Cartões: filete champanhe que se abre no hover/foco --------------- */
+  .ab-grid-4 { grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 40rem) { .ab-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 68rem) { .ab-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+  .ab-grid-4 > .nx-card, .ab-path { position: relative; overflow: hidden; }
+  .ab-grid-4 > .nx-card::before, .ab-path::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--nx-brand-champanhe-claro), var(--nx-brand-champanhe), transparent);
+    transform: scaleX(0.3);
+    opacity: 0.55;
+    transition: transform var(--nx-dur-slow) var(--nx-ease-out), opacity var(--nx-dur-base) var(--nx-ease-out);
+  }
+  .ab-grid-4 > .nx-card:hover::before, .ab-path:hover::before,
+  .ab-grid-4 > .nx-card:focus-within::before, .ab-path:focus-within::before { transform: scaleX(1); opacity: 1; }
+
+  /* "Sou trabalhador" / "Sou empresa": botão alinhado ao fim do cartão. */
+  .ab-path { grid-template-rows: auto auto 1fr auto; }
+  .ab-path .nx-btn { justify-self: start; margin-top: var(--nx-space-3); }
+  .ab-path h3 { font-size: var(--nx-text-2xl); }
+
+  /* ---- Passos: numerais grandes em serifa -------------------------------- */
+  #como-funciona .nx-steps > li::before {
+    font-size: var(--nx-text-3xl);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1;
+  }
+  #como-funciona .nx-steps > li { border-top-color: var(--nx-border-strong); }
+
+  /* ---- Contato ----------------------------------------------------------- */
+  .ab-channels { display: grid; gap: var(--nx-space-3); margin-top: var(--nx-space-2); }
+  .ab-channels .nx-btn { justify-self: start; }
+  .ab-channels a:not(.nx-btn) { display: inline-flex; align-items: center; gap: var(--nx-space-2); min-height: var(--nx-target-min); }
+  .ab-marca-dagua {
+    position: absolute;
+    z-index: -1;
+    left: -6%;
+    bottom: -18%;
+    width: min(46rem, 70%);
+    height: auto;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  /* ---- Sobre ------------------------------------------------------------- */
+  .ab-portrait { aspect-ratio: 4 / 5; max-width: 26rem; }
+
+  /* ---- Texto justificado (pedido do cliente) ------------------------------
+     Só parágrafos de texto corrido. Hifenização automática em pt-BR (lang da página) evita os
+     "rios" de espaço em colunas estreitas. :where() zera a especificidade, então qualquer regra
+     de alinhamento mais específica (centralizados abaixo) vence. Links/e-mails não hifenizam. */
+  :where(main) :where(p, .nx-prose li):where(:not(.nx-eyebrow, .nx-badge, .nx-hero__note, .nx-label, .nx-hint, .nx-error, .nx-form__legend, .nx-form-status)) {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 7 3 3;
+  }
+  .nx-hero__content p, .nx-section__head--center p, .ab-hero__text p { text-align: inherit; -webkit-hyphens: manual; hyphens: manual; }
+  main a, main address { -webkit-hyphens: manual; hyphens: manual; }
+
+  /* ---- Rodapé: filete champanhe, como no papel timbrado ------------------ */
+  .nx-footer { position: relative; }
+  .nx-footer::before {
+    content: "";
+    position: absolute;
+    inset: -1px 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--nx-brand-champanhe), transparent);
+  }
+}
+
+/* ==========================================================================
+   Movimento — só com prefers-reduced-motion: no-preference.
+   Fora disso, tudo aparece pronto, sem animação.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  /* A fita se forma no percurso do traço: perna do A → pé → curva do A até o B →
+     travessa → haste do B → bojo superior → bojo inferior. Cada face cresce a partir
+     de onde o traço "entra" nela (transform-origin), como uma fita sendo conduzida. */
+  .abm-face {
+    transform-box: fill-box;
+    animation: abm-fita 760ms var(--nx-ease-out) both;
+  }
+  .abm-f4 { transform-origin: 30% 100%; animation-delay: 120ms; }   /* perna esquerda do A, de baixo */
+  .abm-f5 { transform-origin: 0% 100%;  animation-delay: 300ms; }   /* pé champanhe */
+  .abm-f6 { transform-origin: 0% 0%;    animation-delay: 420ms; }   /* curva do A até a base do B */
+  .abm-f7 { transform-origin: 0% 100%;  animation-delay: 640ms; }   /* travessa que cruza as letras */
+  .abm-f3 { transform-origin: 50% 0%;   animation-delay: 860ms; }   /* haste champanhe do B */
+  .abm-f2 { transform-origin: 0% 50%;   animation-delay: 1000ms; }  /* bojo superior */
+  .abm-f1 { transform-origin: 100% 0%;  animation-delay: 1160ms; }  /* dobra champanhe inferior */
+  .abm-f0 { transform-origin: 100% 0%;  animation-delay: 1280ms; }  /* bojo inferior */
+  .abm-brilho { animation: abm-surge 600ms var(--nx-ease-out) 1700ms both; }
+
+  @keyframes abm-fita {
+    from { opacity: 0; transform: scale(0.35); }
+    60% { opacity: 1; }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes abm-surge { from { opacity: 0; } }
+
+  /* Luz champanhe que atravessa a fita uma vez (e de novo no hover, via marca.js). */
+  .abm-luz { animation: abm-luz-a 1500ms var(--nx-ease-in-out) 1900ms both; }
+  .abm-luz.is-alt { animation-name: abm-luz-b; animation-delay: 0ms; }
+  @keyframes abm-luz-a {
+    from { transform: translateX(0); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    to { transform: translateX(1560px); opacity: 0; }
+  }
+  @keyframes abm-luz-b {
+    from { transform: translateX(0); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    to { transform: translateX(1560px); opacity: 0; }
+  }
+
+  /* Órbitas e halo entram junto com a fita. */
+  .ab-hero__art::before { animation: abm-surge 1200ms var(--nx-ease-out) 200ms both; }
+  .ab-orbita { animation: ab-orbita 1400ms var(--nx-ease-out) 300ms both; }
+  @keyframes ab-orbita {
+    from { opacity: 0; transform: rotate(-40deg) scaleY(0.62) scale(0.85); }
+    to { opacity: 1; transform: rotate(-18deg) scaleY(0.62); }
+  }
+
+  /* Fio do fundo do hero: desliza e aparece uma vez. */
+  .ab-hero-fio { animation: ab-fio 1800ms var(--nx-ease-out) 400ms both; }
+  @keyframes ab-fio {
+    from { opacity: 0; transform: translateX(-6%); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Faixas: a da frente entra deslizando quando aparece na tela. */
+  .nx-reveal-armed .ab-faixas:not(.is-visible) .ab-faixa--frente { transform: rotate(-2.2deg) translateX(-8%); opacity: 0; }
+  .ab-faixa--frente { transition: transform var(--nx-dur-reveal) var(--nx-ease-out), opacity var(--nx-dur-reveal) var(--nx-ease-out); }
+}
+
+/* ==========================================================================
+   Pré-atendimento pelo WhatsApp: botão flutuante + diálogo (nx-dialog do kit).
+   ========================================================================== */
+@layer nx-components {
+  /* Espaço no fim da página e na rolagem por foco: o botão fixo não cobre o
+     "Voltar ao topo" nem um campo focado no rodapé (WCAG 2.4.11). */
+  html.ab-com-wa { scroll-padding-bottom: calc(var(--nx-consent-h, 0px) + 6rem); }
+  html.ab-com-wa body { padding-bottom: calc(var(--nx-consent-h, 0px) + 5.5rem); }
+
+  .ab-wa-fab {
+    position: fixed;
+    z-index: var(--nx-z-header);
+    right: max(var(--nx-gutter), env(safe-area-inset-right));
+    bottom: calc(var(--nx-gutter) + env(safe-area-inset-bottom));
+    display: inline-flex;
+    align-items: center;
+    gap: var(--nx-space-2);
+    min-height: 3.25rem;
+    padding: 0 var(--nx-space-5) 0 var(--nx-space-4);
+    border: 1px solid var(--nx-brand-champanhe-claro);
+    border-radius: var(--nx-radius-full);
+    background: linear-gradient(135deg, var(--nx-brand-champanhe-claro) 0%, var(--nx-brand-champanhe-medio) 45%, var(--nx-brand-champanhe) 100%);
+    color: var(--nx-brand-imperial);
+    font-weight: 600;
+    box-shadow: var(--nx-highlight), 0 0 0 1px var(--nx-brand-imperial);
+    transition: transform var(--nx-dur-base) var(--nx-ease-out), box-shadow var(--nx-dur-base) var(--nx-ease-out);
+  }
+  .ab-wa-fab[hidden] { display: none; }
+  .ab-wa-fab svg { width: 1.375rem; height: 1.375rem; }
+  /* Anel que pulsa poucas vezes ao aparecer (ver bloco de movimento). */
+  .ab-wa-fab::after {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: inherit;
+    border: 2px solid var(--nx-brand-champanhe);
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ab-wa-fab:hover, .ab-wa-fab:focus-visible { box-shadow: var(--nx-highlight), 0 0 0 1px var(--nx-brand-imperial), var(--nx-shadow-glow); }
+  @media (forced-colors: active) { .ab-wa-fab { border: 2px solid ButtonText; } }
+
+  /* Diálogo */
+  .ab-wa .nx-dialog__header h2 { font-family: var(--nx-font-display); }
+  .ab-wa__form { gap: var(--nx-space-5); }
+  .ab-wa__group { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: var(--nx-space-2); }
+  .ab-wa__group legend { padding: 0; margin-bottom: var(--nx-space-2); font-size: var(--nx-text-sm); font-weight: 600; color: var(--nx-text); }
+  .ab-chips { display: flex; flex-wrap: wrap; gap: var(--nx-space-2); }
+
+  /* Opções em "chip": o rádio nativo cobre o chip (clique, teclado e leitor de tela de graça). */
+  .ab-chip { position: relative; display: inline-flex; max-width: 100%; }
+  .ab-chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .ab-chip span {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--nx-target-min);
+    padding: var(--nx-space-2) var(--nx-space-4);
+    border: 1px solid var(--nx-border-control);
+    border-radius: var(--nx-radius-full);
+    color: var(--nx-text-secondary);
+    font-size: var(--nx-text-sm);
+    line-height: 1.3;
+    transition: background-color var(--nx-dur-fast) var(--nx-ease-out), border-color var(--nx-dur-fast) var(--nx-ease-out), color var(--nx-dur-fast) var(--nx-ease-out);
+  }
+  .ab-chip input:hover + span { border-color: var(--nx-text-secondary); color: var(--nx-text); }
+  .ab-chip input:checked + span { background: var(--nx-action); border-color: var(--nx-action); color: var(--nx-on-action); font-weight: 600; }
+  .ab-chip input:focus-visible + span { outline: var(--nx-focus-width) solid var(--nx-focus); outline-offset: 2px; }
+  @media (forced-colors: active) {
+    .ab-chip input:checked + span { border-width: 3px; text-decoration: underline; }
+  }
+
+  .ab-wa__preview {
+    display: grid;
+    gap: var(--nx-space-2);
+    padding: var(--nx-space-4);
+    border: 1px dashed var(--nx-border-strong);
+    border-radius: var(--nx-radius-md);
+    background: var(--nx-bg);
+  }
+  .ab-wa__msg { white-space: pre-line; color: var(--nx-text); font-size: var(--nx-text-sm); }
+  .ab-wa .nx-dialog__footer .nx-btn { flex: 1 1 auto; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Entra depois do hero e chama a atenção com 3 pulsos (≈ 4 s, depois para: WCAG 2.2.2). */
+  /* backwards (e não both): depois de entrar, o transform volta a ser do :hover. */
+  .ab-wa-fab { animation: ab-fab-entra 700ms var(--nx-ease-out) 1600ms backwards; }
+  .ab-wa-fab::after { animation: ab-fab-pulso 1300ms var(--nx-ease-out) 2400ms 3; }
+  @media (hover: hover) { .ab-wa-fab:hover { transform: translateY(-2px); } }
+  @keyframes ab-fab-entra {
+    from { opacity: 0; transform: translateY(1.5rem) scale(0.9); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes ab-fab-pulso {
+    from { opacity: 0.85; transform: scale(1); }
+    to { opacity: 0; transform: scale(1.3); }
+  }
+}
+
+/* ==========================================================================
+   Blog (Artigos): lista, cartões e página de artigo. Só tokens --nx-*.
+   ========================================================================== */
+@layer nx-components {
+  .ab-categorias { margin-bottom: var(--nx-space-8); }
+  .ab-categorias ul { display: flex; flex-wrap: wrap; gap: var(--nx-space-2); padding: 0; list-style: none; }
+  .ab-categorias .nx-badge { min-height: var(--nx-target-min); text-decoration: none; }
+  .ab-categorias .nx-badge:hover { border-color: var(--nx-text-secondary); color: var(--nx-text); }
+  .ab-categorias .nx-badge[aria-current="page"] { background: var(--nx-action); border-color: var(--nx-action); color: var(--nx-on-action); font-weight: 600; }
+
+  .ab-artigos-lista { margin-bottom: var(--nx-space-10); }
+  .ab-artigo-card { position: relative; grid-template-columns: minmax(0, 1fr); gap: var(--nx-space-3); }
+  .ab-artigo-card :is(h2, h3) { font-size: var(--nx-text-xl); line-height: var(--nx-leading-snug); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .ab-artigo-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--nx-space-3); font-size: var(--nx-text-sm); color: var(--nx-text-secondary); }
+  .ab-artigo-card :is(h2, h3) a { color: var(--nx-text); text-decoration: none; }
+  .ab-artigo-card :is(h2, h3) a:hover { text-decoration: underline; }
+  /* O cartão inteiro é clicável pelo link do título. */
+  .ab-artigo-card :is(h2, h3) a::after { content: ""; position: absolute; inset: 0; }
+  .ab-artigos-mais { margin-top: var(--nx-space-8); }
+
+  .ab-aviso-artigo { margin-top: var(--nx-space-8); }
+
+  .ab-artigo__cab { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--nx-space-4); margin-bottom: var(--nx-space-8); }
+  .ab-artigo__cab .ab-artigo-meta a.nx-badge { text-decoration: none; }
+  .ab-artigo__cab h1 { overflow-wrap: anywhere; }
+  .ab-artigo__autor { color: var(--nx-text-secondary); font-size: var(--nx-text-sm); }
+  .ab-artigo__capa { margin: 0 0 var(--nx-space-8); }
+  .ab-artigo__capa img { display: block; width: 100%; height: auto; border-radius: var(--nx-radius-md); }
+  .ab-artigo .nx-prose img { max-width: 100%; height: auto; border-radius: var(--nx-radius-md); }
+  .ab-autor { margin-top: var(--nx-space-8); padding-top: var(--nx-space-6); border-top: 1px solid var(--nx-border-subtle); display: grid; gap: var(--nx-space-2); color: var(--nx-text-secondary); }
+  .ab-autor strong { color: var(--nx-text); }
+  .ab-artigo__voltar { margin-top: var(--nx-space-8); }
+}

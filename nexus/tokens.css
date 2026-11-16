@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Nexus UI v4 — Design Tokens (fonte única de verdade visual)
+   --------------------------------------------------------------------------
+   Regras:
+   1. Nenhuma cor, fonte, espaçamento ou curva fora deste arquivo.
+   2. Para criar ou alterar um token: edite AQUI e rode
+        node scripts/check-contrast.mjs
+      Se algum par falhar, o token não entra.
+   3. Tokens de cor são semânticos (papel), não descritivos (tom).
+      Ex.: use --nx-action para botão, nunca --nx-accent.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Superfícies ------------------------------------------------------ */
+  --nx-bg: #09090B;
+  --nx-surface: #18181B;
+  --nx-surface-hover: #27272A;
+  --nx-glass-bg: rgb(24 24 27 / 0.6);
+  --nx-glass-bg-strong: rgb(24 24 27 / 0.92);   /* banner/menus sobre conteúdo */
+
+  /* ---- Texto ------------------------------------------------------------ */
+  --nx-text: #FAFAFA;
+  --nx-text-secondary: #A1A1AA;
+  --nx-text-muted: #909099;            /* v3 usava #52525B (2,57:1) — reprovado */
+
+  /* ---- Marca e ação ------------------------------------------------------
+     --nx-accent é DECORATIVO (brilho, gradiente, formas grandes).
+     Não use como fundo de texto pequeno nem como cor de texto.
+     Branco sobre #6366F1 dá 4,47:1 e reprova; por isso o botão usa --nx-action. */
+  --nx-accent: #6366F1;
+  --nx-glow: rgb(99 102 241 / 0.15);
+  --nx-action: #4F46E5;
+  --nx-action-hover: #4338CA;
+  --nx-on-action: #FFFFFF;
+  --nx-link: #818CF8;
+  --nx-link-hover: #A5B4FC;
+  --nx-focus: #A5B4FC;
+
+  /* ---- Bordas ------------------------------------------------------------
+     subtle/strong: decorativas (cards, divisores) — isentas do 3:1.
+     control: delimita campos de formulário — precisa de 3:1 (WCAG 1.4.11). */
+  --nx-border-subtle: rgb(255 255 255 / 0.08);
+  --nx-border-strong: rgb(255 255 255 / 0.15);
+  --nx-border-control: #71717A;
+  --nx-grid-line: rgb(255 255 255 / 0.04);
+
+  /* ---- Estados ---------------------------------------------------------- */
+  --nx-danger: #F87171;
+  --nx-success: #4ADE80;
+  --nx-warning: #FBBF24;
+
+  /* ---- Tipografia ---------------------------------------------------------
+     Fontes auto-hospedadas (ver nexus/fonts/LEIA-ME.md). Sem Google Fonts via
+     CDN: a requisição envia o IP do visitante a terceiros antes do consentimento. */
+  --nx-font-sans: "Inter", "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --nx-font-display: "Space Grotesk", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --nx-text-xs: 0.75rem;
+  --nx-text-sm: 0.875rem;
+  --nx-text-base: 1rem;
+  --nx-text-lg: 1.125rem;
+  --nx-text-xl: 1.25rem;
+  --nx-text-2xl: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+  --nx-text-3xl: clamp(1.875rem, 1.5rem + 1.6vw, 2.5rem);
+  --nx-text-4xl: clamp(2.25rem, 1.7rem + 2.4vw, 3.5rem);
+  --nx-text-5xl: clamp(2.625rem, 1.9rem + 3.4vw, 4.5rem);
+
+  --nx-leading-tight: 1.1;
+  --nx-leading-snug: 1.3;
+  --nx-leading-normal: 1.6;
+  --nx-tracking-display: -0.025em;
+  --nx-tracking-eyebrow: 0.12em;
+
+  /* ---- Espaçamento (base 4px) ------------------------------------------- */
+  --nx-space-1: 0.25rem;
+  --nx-space-2: 0.5rem;
+  --nx-space-3: 0.75rem;
+  --nx-space-4: 1rem;
+  --nx-space-5: 1.25rem;
+  --nx-space-6: 1.5rem;
+  --nx-space-8: 2rem;
+  --nx-space-10: 2.5rem;
+  --nx-space-12: 3rem;
+  --nx-space-16: 4rem;
+  --nx-space-20: 5rem;
+  --nx-space-24: 6rem;
+
+  --nx-section-y: clamp(4rem, 2.5rem + 6vw, 8rem);
+  --nx-container: 72rem;
+  --nx-container-narrow: 46rem;
+  --nx-gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);
+
+  /* ---- Forma ------------------------------------------------------------ */
+  --nx-radius-sm: 0.5rem;
+  --nx-radius-md: 0.75rem;
+  --nx-radius-lg: 1rem;
+  --nx-radius-xl: 1.5rem;
+  --nx-radius-full: 999px;
+  --nx-blur: 16px;
+  --nx-highlight: inset 0 1px 0 rgb(255 255 255 / 0.1);
+  --nx-shadow-glow: 0 0 24px -6px rgb(99 102 241 / 0.55);
+
+  /* ---- Interação e acessibilidade --------------------------------------- */
+  --nx-focus-width: 2px;
+  --nx-focus-offset: 3px;
+  --nx-target-min: 2.75rem;           /* 44px — acima do mínimo de 24px da WCAG 2.5.8 */
+
+  /* ---- Movimento -----------------------------------------------------------
+     Uma curva principal para tudo (era "apple" na v3). Sem "ease-out" genérico. */
+  --nx-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --nx-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --nx-dur-fast: 150ms;
+  --nx-dur-base: 300ms;
+  --nx-dur-slow: 600ms;
+  --nx-dur-reveal: 800ms;
+  --nx-reveal-distance: 1.25rem;
+
+  /* ---- Camadas ---------------------------------------------------------- */
+  --nx-z-header: 40;
+  --nx-z-banner: 70;
+  --nx-z-skip: 90;
+}
+
+/* Tema claro opcional: <html data-theme="light"> */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --nx-bg: #FFFFFF;
+  --nx-surface: #F4F4F5;
+  --nx-surface-hover: #E4E4E7;
+  --nx-glass-bg: rgb(255 255 255 / 0.7);
+  --nx-glass-bg-strong: rgb(255 255 255 / 0.94);
+
+  --nx-text: #09090B;
+  --nx-text-secondary: #52525B;
+  --nx-text-muted: #5F5F68;
+
+  --nx-accent: #6366F1;
+  --nx-glow: rgb(99 102 241 / 0.12);
+  --nx-action: #4F46E5;
+  --nx-action-hover: #4338CA;
+  --nx-on-action: #FFFFFF;
+  --nx-link: #4338CA;
+  --nx-link-hover: #3730A3;
+  --nx-focus: #4F46E5;
+
+  --nx-border-subtle: rgb(9 9 11 / 0.08);
+  --nx-border-strong: rgb(9 9 11 / 0.16);
+  --nx-border-control: #71717A;
+  --nx-grid-line: rgb(9 9 11 / 0.05);
+
+  --nx-danger: #B91C1C;
+  --nx-success: #166534;
+  --nx-warning: #92400E;
+
+  --nx-highlight: inset 0 1px 0 rgb(255 255 255 / 0.25);
+  --nx-shadow-glow: 0 0 24px -8px rgb(79 70 229 / 0.45);
+}
+
+/* Movimento reduzido: o sistema inteiro respeita a preferência do visitante. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --nx-dur-fast: 0ms;
+    --nx-dur-base: 0ms;
+    --nx-dur-slow: 0ms;
+    --nx-dur-reveal: 0ms;
+    --nx-reveal-distance: 0;
+  }
+}

@@ -1,0 +1,143 @@
+# Sveltia CMS · painel do blog de Arthur Barbosa (pt-BR).
+# O idioma da interface segue o do navegador (português do Brasil).
+# Este arquivo é público (fica em /admin/config.yml): nada de segredo aqui.
+
+backend:
+  name: github
+  # Repositório do site na conta da NexusUI (público). Criado em 16/11/2026.
+  repo: "NexusUigestao/site-arthur-barbosa"
+  branch: main
+  # Login por botão, pelo servidor OAuth do Netlify. Se o domínio do site mudar, acrescentar
+  # site_domain com o domínio do projeto no Netlify (ex.: nome-do-projeto.netlify.app).
+  base_url: https://api.netlify.com
+  # Salvar NÃO publica: o commit leva o prefixo [skip ci] e não gera deploy. Para publicar, use
+  # "Salvar e publicar" (seta ao lado de Salvar). Protege os créditos mensais do Netlify.
+  skip_ci: true
+  commit_messages:
+    create: 'Artigo: criar "{{slug}}"'
+    update: 'Artigo: atualizar "{{slug}}"'
+    delete: 'Artigo: excluir "{{slug}}"'
+    uploadMedia: 'Imagem: enviar "{{path}}"'
+    deleteMedia: 'Imagem: excluir "{{path}}"'
+
+app_title: Painel do blog · Arthur Barbosa
+site_url: https://arthurbarbosa-advocacia.netlify.app
+logo:
+  src: /favicon.svg
+  show_in_header: true
+
+# Imagens: o navegador converte para WebP, reduz a 1600 px de largura, remove os metadados
+# (Exif) e recusa arquivo acima de 2 MB. Ficam em assets/blog/ do repositório.
+media_folder: assets/blog
+public_folder: /assets/blog
+media_libraries:
+  default:
+    config:
+      max_file_size: 2097152
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  maxlength: 60
+
+collections:
+  - name: artigos
+    label: Artigos
+    label_singular: Artigo
+    description: >-
+      Artigos informativos do blog. Salve quantas vezes quiser; o artigo só vai ao ar com
+      "Publicado no site" ligado e "Salvar e publicar".
+    folder: conteudo/artigos
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    preview_path: /blog/{{slug}}/
+    summary: "{{title}}"
+    sortable_fields: [date, title, categoria, publicado]
+    fields:
+      - name: title
+        label: Título
+        widget: string
+        maxlength: 60
+        hint: >-
+          Até 60 caracteres. Descreva o assunto; sem promessa de resultado, sem expressões como
+          "o melhor" ou "referência em" e sem falar em honorários ou "consulta grátis" (Provimento
+          OAB 205/2021, art. 3º).
+      - name: description
+        label: Resumo (aparece nos cartões e no Google)
+        widget: text
+        minlength: 140
+        maxlength: 160
+        hint: >-
+          Entre 140 e 160 caracteres. Explique o que o leitor vai entender com o texto. Não cite
+          resultados, casos ganhos nem valores.
+      - name: date
+        label: Data
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        picker_utc: true
+        hint: Data de publicação do artigo.
+      # ATENÇÃO: lista duplicada de _data/categorias.json (fonte única do build). Mudou aqui, mude lá.
+      - name: categoria
+        label: Categoria
+        widget: select
+        options:
+          - { label: Trabalho, value: trabalho }
+          - { label: Consumidor, value: consumidor }
+          - { label: Família, value: familia }
+          - { label: Defesas Administrativas, value: defesas-administrativas }
+        hint: Escolha a área do artigo. Só estas quatro existem.
+      - name: atualizado
+        label: Data da última atualização (opcional)
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        picker_utc: true
+        required: false
+        hint: Preencha só se o artigo for revisado depois de publicado. Aparece no mapa do site para o Google.
+      - name: imagem
+        label: Imagem de capa (opcional)
+        widget: image
+        required: false
+        hint: >-
+          Só imagem própria ou licenciada. Nunca foto de cliente nem de pessoa sem autorização
+          por escrito. Máximo de 2 MB; é convertida para WebP automaticamente.
+      - name: imagem_alt
+        label: Descrição da imagem (obrigatória se houver imagem)
+        widget: string
+        required: false
+        hint: >-
+          Descreva o que a imagem mostra, para quem não a enxerga. Se há imagem de capa, este
+          campo é obrigatório: sem ele o site não publica o artigo.
+      - name: body
+        label: Texto do artigo
+        widget: markdown
+        buttons:
+          - bold
+          - italic
+          - link
+          - heading-two
+          - heading-three
+          - quote
+          - bulleted-list
+          - numbered-list
+        hint: >-
+          Lembretes da OAB: sem resultados, decisões favoráveis ou "casos ganhos" como propaganda;
+          sem honorários, descontos ou consulta gratuita; sem autoengrandecimento ou comparação com
+          outros advogados; sem foto, nome ou caso identificável de cliente. O texto é informativo
+          e sem captação. Use títulos de seção (nível 2 e 3); o título do artigo já é o principal.
+      - name: publicado
+        label: Publicado no site
+        widget: boolean
+        default: false
+        hint: >-
+          Desligado = rascunho: o artigo não aparece no site. Para ir ao ar: ligue esta chave,
+          salve com "Salvar e publicar" e aguarde alguns minutos.

@@ -1,0 +1,8 @@
+<nav class="ab-categorias" aria-label="Categorias de artigos">
+  <ul role="list">
+    <li><a class="nx-badge" href="/blog/"{% if page.url == "/blog/" %} aria-current="page"{% endif %}>Todos</a></li>
+{%- for c in categorias %}
+    <li><a class="nx-badge" href="/blog/{{ c.slug }}/"{% if page.url == "/blog/" + c.slug + "/" %} aria-current="page"{% endif %}>{{ c.rotulo }}</a></li>
+{%- endfor %}
+  </ul>
+</nav>

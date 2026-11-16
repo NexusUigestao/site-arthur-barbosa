@@ -1,0 +1,23 @@
+---
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Artigos de {{ site.nomeCurto }}</title>
+    <link>{{ site.url }}/blog/</link>
+    <description>Artigos informativos de {{ autor.nome }}, advogado {{ autor.oab }}, sobre Direito do Trabalho, do Consumidor, de Família e Defesas Administrativas.</description>
+    <language>pt-BR</language>
+    <atom:link href="{{ site.url }}/blog/feed.xml" rel="self" type="application/rss+xml"/>
+{%- for artigo in collections.artigos | primeiros(20) %}
+    <item>
+      <title>{{ artigo.data.title }}</title>
+      <link>{{ site.url }}{{ artigo.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ artigo.url }}</guid>
+      <pubDate>{{ artigo.data.date | dataRfc822 }}</pubDate>
+      <category>{{ artigo.data.categoria | rotuloCategoria(categorias) }}</category>
+      <description>{{ artigo.data.description }}</description>
+    </item>
+{%- endfor %}
+  </channel>
+</rss>

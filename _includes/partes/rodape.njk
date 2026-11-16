@@ -1,0 +1,38 @@
+  <footer class="nx-footer">
+    <div class="nx-container">
+      <div class="nx-footer__grid">
+        <div class="nx-stack">
+          <a class="nx-logo ab-logo" href="/">
+            <img src="/assets/marca/assinatura-horizontal-negativa.svg" width="1048" height="220" alt="{{ site.nome }}, página inicial" loading="lazy" decoding="async">
+          </a>
+          <address>
+            <span>{{ autor.nomeCompleto }} · Advogado · {{ autor.oab }}</span>
+            <span>Maceió/AL · atendimento online em todo o Brasil</span>
+            <a href="{{ site.whatsapp }}">{{ site.whatsappRotulo }}</a>
+            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+          </address>
+        </div>
+
+        <nav aria-labelledby="rodape-transparencia">
+          <h2 id="rodape-transparencia">Transparência</h2>
+          <ul role="list">
+            <li><a href="/politica-de-privacidade.html">Política de Privacidade</a></li>
+            <li><a href="/termos-de-uso.html">Termos de Uso</a></li>
+            <li><a href="/direitos-do-titular.html">Seus direitos (LGPD)</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2>Proteção de dados</h2>
+          <p>Dúvidas e pedidos sobre dados pessoais:</p>
+          <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+          <p>Este site não usa cookies.</p>
+        </div>
+      </div>
+
+      <div class="nx-footer__bottom">
+        <p>© <span data-nx-year>2026</span> {{ autor.nomeCompleto }} · {{ autor.oab }}</p>
+        <p><a href="#conteudo">Voltar ao topo</a></p>
+      </div>
+    </div>
+  </footer>

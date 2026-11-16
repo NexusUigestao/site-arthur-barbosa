@@ -1,0 +1,104 @@
+---
+permalink: /_headers
+eleventyExcludeFromCollections: true
+---
+# Cabeçalhos de segurança e cache — lidos automaticamente por Netlify e Cloudflare Pages.
+# ARQUIVO GERADO por cabecalhos.njk (Eleventy). Edite o modelo e os dados em _data/csp.json e
+# _data/paginas.json, nunca este arquivo dentro de _site/.
+#
+# POR QUE A CSP NÃO FICA EM "/*": o Netlify concatena os valores de cabeçalhos repetidos numa só linha
+# (doc "Custom headers", seção Multi-value headers; vale para regras diferentes que casam com o
+# mesmo caminho). Duas CSPs no mesmo caminho se somam como restrição: a estrita do site anularia a
+# do painel /admin e o Sveltia CMS não carregaria. Por isso a CSP estrita fica só nas páginas
+# públicas (lista abaixo, gerada de paginas.json) e o /admin tem a sua; nenhuma regra pública casa
+# com /admin. O restante (HSTS, nosniff, COOP etc.) é igual para todos e fica em "/*".
+# Página pública nova: acrescente em _data/paginas.json (ela entra aqui e no sitemap).
+#
+# A CSP pública é estrita (só o próprio domínio). Ao liberar um serviço, acrescente
+# APENAS o domínio dele na diretiva certa, em _data/csp.json. Exemplos:
+#   Formulário externo (ex.: Formspree):  form-action 'self' https://formspree.io; connect-src 'self' https://formspree.io
+#   Google Analytics 4 (após consentimento): script-src 'self' https://www.googletagmanager.com;
+#       connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+#       img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com
+#     (atenção: liberar googletagmanager.com libera qualquer contêiner GTM — risco aceito ao usar GA4)
+#   YouTube (após consentimento): frame-src 'self' https://www.youtube-nocookie.com
+#   logEndpoint do consentimento em outro domínio: connect-src 'self' https://seu-endpoint
+# Todo serviço liberado aqui precisa estar listado na Política de Privacidade.
+#
+# /admin (Sveltia CMS): só o login do Arthur no GitHub fala com terceiros; o visitante do site
+# nunca carrega nada disso.
+# COOP: valor único em "/*" (same-origin-allow-popups). O COOP não aceita dois valores juntos, então
+# nunca o repita por caminho. Com same-origin o login do painel quebra: ele abre uma janela do
+# GitHub/Netlify e precisa devolver o resultado à janela do painel. O site público não abre
+# janelas, então não perde isolamento prático.
+#
+# HSTS com includeSubDomains: confirme que TODOS os subdomínios têm HTTPS antes de publicar.
+#
+# PROTÓTIPO: X-Robots-Tag (última linha do bloco "/*") impede a indexação enquanto o site
+# está no endereço provisório. REMOVA essa linha ao publicar no domínio definitivo.
+# O /admin continua fora do índice por <meta name="robots" content="noindex"> e pelo robots.txt.
+
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  X-Frame-Options: DENY
+  X-Robots-Tag: noindex, nofollow
+
+# ---- Páginas públicas: CSP estrita ----
+{% for p in paginas %}{% for c in p.caminho | variantesCaminho %}
+{{ c }}
+  Content-Security-Policy: {{ csp.publica | safe }}
+{% endfor %}{% endfor %}
+/blog
+  Content-Security-Policy: {{ csp.publica | safe }}
+/blog/
+  Content-Security-Policy: {{ csp.publica | safe }}
+/blog/*
+  Content-Security-Policy: {{ csp.publica | safe }}
+/assets/*
+  Content-Security-Policy: {{ csp.publica | safe }}
+/nexus/*
+  Content-Security-Policy: {{ csp.publica | safe }}
+/favicon.svg
+  Content-Security-Policy: {{ csp.publica | safe }}
+/robots.txt
+  Content-Security-Policy: {{ csp.publica | safe }}
+/sitemap.xml
+  Content-Security-Policy: {{ csp.publica | safe }}
+/og.png
+  Content-Security-Policy: {{ csp.publica | safe }}
+/blog/feed.xml
+  Content-Security-Policy: {{ csp.publica | safe }}
+
+# ---- Painel /admin: CSP própria (nenhuma regra acima casa com estes caminhos) ----
+/admin
+  Content-Security-Policy: {{ csp.admin | safe }}
+  X-Robots-Tag: noindex
+/admin/*
+  Content-Security-Policy: {{ csp.admin | safe }}
+  X-Robots-Tag: noindex
+
+# Cache. HTML sempre revalida (correções jurídicas e de consentimento chegam na hora).
+# nexus/*.css e *.js não têm hash no nome: cache curto, nunca "immutable".
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+/
+  Cache-Control: public, max-age=0, must-revalidate
+/blog/*
+  Cache-Control: public, max-age=0, must-revalidate
+/nexus/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+/nexus/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=604800
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/admin/chunks/*
+  Cache-Control: public, max-age=31536000, immutable
+/admin/assets/*
+  Cache-Control: public, max-age=31536000, immutable

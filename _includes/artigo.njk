@@ -1,0 +1,32 @@
+---
+layout: base.njk
+---
+    <article class="nx-container nx-container--narrow ab-artigo">
+      <header class="ab-artigo__cab">
+        <p class="ab-artigo-meta"><a class="nx-badge" href="/blog/{{ categoria }}/">{{ categoria | rotuloCategoria(categorias) }}</a> <time datetime="{{ date | dataIso }}">{{ date | dataBr }}</time></p>
+        <h1 data-enter="text">{{ title }}</h1>
+        <p class="ab-artigo__autor">Por {{ autor.nome }} · {{ autor.oab }}</p>
+      </header>
+{%- if imagem %}
+
+      <figure class="ab-artigo__capa">
+        <img src="{{ imagem }}" alt="{{ altImagem }}"{% if imagemDim %} width="{{ imagemDim.w }}" height="{{ imagemDim.h }}"{% endif %} fetchpriority="high" decoding="async">
+      </figure>
+{%- endif %}
+
+      <div class="nx-prose">
+{{ content | safe }}
+      </div>
+
+      {% include "partes/aviso.njk" %}
+
+{%- if autor.minibio and "[[" not in autor.minibio %}
+
+      <aside class="ab-autor" aria-label="Sobre o autor">
+        <p><strong>{{ autor.nome }} · {{ autor.oab }}</strong></p>
+        <p>{{ autor.minibio }}</p>
+      </aside>
+{%- endif %}
+
+      <p class="ab-artigo__voltar"><a class="nx-btn nx-btn--secondary" href="/blog/">Todos os artigos</a></p>
+    </article>

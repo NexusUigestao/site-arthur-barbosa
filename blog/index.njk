@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Artigos
+tituloDaPagina: Artigos | Arthur Barbosa Advocacia
+description: Artigos informativos de Arthur Barbosa, advogado OAB/AL 20.279, sobre Direito do Trabalho, do Consumidor, de Família e Defesas Administrativas.
+---
+    <div class="nx-container">
+      <div class="nx-section__head">
+        <p class="nx-eyebrow">Conteúdo informativo</p>
+        <h1 data-enter="text">Artigos</h1>
+        <p class="nx-lead" data-enter="text">Textos sobre as áreas em que o escritório atua: Trabalho, Consumidor, Família e Defesas Administrativas.</p>
+      </div>
+
+      {% include "partes/categorias.njk" %}
+
+{%- if collections.artigos.length %}
+      <ul class="nx-grid ab-artigos-lista" role="list">
+{%- for artigo in collections.artigos %}
+        {% set atraso = loop.index0 % 3 %}{% set nivel = 2 %}{% include "partes/card-artigo.njk" %}
+{%- endfor %}
+      </ul>
+{%- else %}
+      <p class="nx-muted">Ainda não há artigos publicados.</p>
+{%- endif %}
+
+      {% include "partes/aviso.njk" %}
+    </div>

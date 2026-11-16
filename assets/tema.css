@@ -1,0 +1,117 @@
+/* ==========================================================================
+   Tema de marca — Arthur Barbosa Advocacia e Consultoria Jurídica
+   --------------------------------------------------------------------------
+   Só redefine tokens --nx-* (carregue DEPOIS de nexus/tokens.css).
+   Validação: node scripts/check-contrast.mjs --tema sites/arthur-barbosa/assets/tema.css
+
+   Paleta do Dossiê Visual (ed. 01): Roxo Imperial #2B1B4C · Roxo Fígaro #6244AD ·
+   Ouro Champanhe #C2A878 · Marfim #F6F4F0. Os demais tons são derivados dessas
+   quatro cores para cumprir o contraste WCAG 2.2 AA.
+   ========================================================================== */
+
+/* Títulos: Libre Baskerville (SIL OFL 1.1, ver fonts/LICENSE-LibreBaskerville.txt),
+   alternativa livre à Baskerville Old Face da assinatura. */
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url("fonts/libre-baskerville-latin-wght-normal.woff2") format("woff2-variations"),
+       url("fonts/libre-baskerville-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* Itálico: palavra de destaque nos títulos (.ab-acento). */
+@font-face {
+  font-family: "Libre Baskerville";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url("fonts/libre-baskerville-latin-wght-italic.woff2") format("woff2-variations"),
+       url("fonts/libre-baskerville-latin-wght-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Tema escuro (site): fundo Roxo Imperial, texto Marfim, ação em Ouro Champanhe. */
+:root {
+  /* Cores fixas da marca (iguais nos dois temas), para faixas, filetes e brilhos decorativos.
+     Texto sobre a faixa champanhe usa --nx-brand-imperial: 6,7:1 no tom mais escuro (#C2A878). */
+  --nx-brand-imperial: #2B1B4C;
+  --nx-brand-figaro: #6244AD;
+  --nx-brand-champanhe: #C2A878;
+  --nx-brand-champanhe-claro: #F3E5CC;
+  --nx-brand-champanhe-medio: #D4BA91;
+  --nx-brand-marfim: #F6F4F0;
+  --nx-brand-brilho: rgb(194 168 120 / 0.22);
+  --nx-brand-fio: rgb(212 186 145 / 0.38);
+
+  --nx-bg: #1C1132;
+  --nx-surface: #2B1B4C;
+  --nx-surface-hover: #36245C;
+  --nx-glass-bg: rgb(28 17 50 / 0.62);
+  --nx-glass-bg-strong: rgb(28 17 50 / 0.95);
+
+  --nx-text: #F6F4F0;
+  --nx-text-secondary: #C9BFD6;
+  --nx-text-muted: #B3A6C6;
+
+  --nx-accent: #6244AD;
+  --nx-glow: rgb(98 68 173 / 0.24);
+  --nx-action: #C2A878;
+  --nx-action-hover: #D4BA91;
+  --nx-on-action: #2B1B4C;
+  --nx-link: #D4BA91;
+  --nx-link-hover: #F3E5CC;
+  --nx-focus: #D4BA91;
+
+  --nx-border-subtle: rgb(246 244 240 / 0.09);
+  --nx-border-strong: rgb(246 244 240 / 0.18);
+  --nx-border-control: #9182A8;
+  --nx-grid-line: rgb(246 244 240 / 0.035);
+
+  --nx-danger: #FCA5A5;
+  --nx-success: #86EFAC;
+  --nx-warning: #FCD34D;
+
+  --nx-font-display: "Libre Baskerville", Baskerville, "Baskerville Old Face", Georgia, "Times New Roman", serif;
+  --nx-tracking-display: -0.01em;
+
+  --nx-highlight: inset 0 1px 0 rgb(255 255 255 / 0.14);
+  --nx-shadow-glow: 0 0 24px -6px rgb(194 168 120 / 0.55);
+}
+
+/* Tema claro (páginas legais e seções marfim da home, como o papel timbrado).
+   :root[data-theme="light"] vence o :root acima nas páginas claras; [data-theme="light"]
+   vale para uma seção (<section data-theme="light">) e, por vir depois do tokens.css,
+   vence o tema claro índigo do kit, que tem a mesma especificidade. */
+:root[data-theme="light"], [data-theme="light"] {
+  --nx-bg: #F6F4F0;
+  --nx-surface: #ECE7DF;
+  --nx-surface-hover: #E3DCD1;
+  --nx-glass-bg: rgb(246 244 240 / 0.78);
+  --nx-glass-bg-strong: rgb(246 244 240 / 0.96);
+
+  --nx-text: #2B1B4C;
+  --nx-text-secondary: #4B3F5C;
+  --nx-text-muted: #5A4E6B;
+
+  --nx-accent: #6244AD;
+  --nx-glow: rgb(98 68 173 / 0.10);
+  --nx-action: #4E3592;
+  --nx-action-hover: #3E2A76;
+  --nx-on-action: #FFFFFF;
+  --nx-link: #4E3592;
+  --nx-link-hover: #2B1B4C;
+  --nx-focus: #4E3592;
+
+  --nx-border-subtle: rgb(43 27 76 / 0.10);
+  --nx-border-strong: rgb(43 27 76 / 0.20);
+  --nx-border-control: #7A6E8A;
+  --nx-grid-line: rgb(43 27 76 / 0.05);
+
+  --nx-danger: #B91C1C;
+  --nx-success: #166534;
+  --nx-warning: #92400E;
+
+  --nx-highlight: inset 0 1px 0 rgb(255 255 255 / 0.3);
+  --nx-shadow-glow: 0 0 24px -8px rgb(78 53 146 / 0.4);
+}

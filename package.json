@@ -1,0 +1,22 @@
+{
+  "name": "arthur-barbosa-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Site de Arthur Barbosa Advocacia: HTML estático gerado com Eleventy; painel /admin com Sveltia CMS empacotado no próprio domínio.",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "cms": "vite build",
+    "build": "vite build && eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.8",
+    "@sveltia/cms": "0.267.0",
+    "vite": "8.3.8"
+  },
+  "dependencies": {
+    "gray-matter": "npm:@11ty/gray-matter@1.0.0"
+  }
+}
